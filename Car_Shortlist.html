@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car ShortList</title>
+    <!-- Link to CSS -->
+    <link rel="stylesheet" href="Car_Shortlist.css">
+<link rel="stylesheet" href="style.css">
+    <!--Box Icons -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+</head>
+<body>
+<!-- Header -->
+<header>
+    <a href="#" class="logo"><img src="" alt=""></a>
+
+    <div class="bx bx-menu" id="menu-icon"></div>
+
+    <ul class="navbar">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#ride">Ride</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#reviews">Review</a></li>
+    </ul>
+    <div class="header-btn">
+        <a href="#" class="sign-up">Sign Up</a>
+        <a href="#" class="sign-in">Sign In</a>
+    </div>
+</header>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color:white;
+    }
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+    }
+    label {
+      font-weight: bold;
+    }
+    select, button {
+      padding: 8px;
+      margin: 5px;
+    }
+    #carList {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .car-item {
+      border: 3px solid black;
+      padding: 10px;
+      text-align: center;
+    }
+    .car-image {
+      max-width: 100%;
+      height: auto;
+    }
+    .details-link {
+            text-decoration: none;
+            color: #007bff;
+            display: block;
+            margin-top: 10px;
+            border: black;
+        }
+  </style>
+</head>
+<body>
+  <h1>Car Rental Service</h1>
+  <label for="brand">Select Brand:</label>
+  <select id="brand">
+    <option value="all">All Brands</option>
+    <option value="toyota">Toyota</option>
+    <option value="honda">Honda</option>
+    <option value="ford">Ford</option>
+    <!-- Add more options as needed -->
+  </select>
+  <label for="type">Select Type:</label>
+  <select id="type">
+    <option value="all">All Types</option>
+    <option value="sedan">Sedan</option>
+    <option value="suv">SUV</option>
+    <option value="truck">Truck</option>
+    <!-- Add more options as needed -->
+  </select>
+  <button id="filterBtn">Apply Filters</button>
+  
+  <div id="carList">
+    <!-- Car listings will be displayed here -->
+  </div>
+ 
+  <script>
+     
+    // Sample car data with image URLs (replace with your actual data)
+    const cars = [
+      { brand: "toyota", type: "sedan", model: "Camry", image: "images/car1.jpg",submitButton:"RENT",},
+      { brand: "honda", type: "suv", model: "CR-V", image: "images/car2.jpg" },
+      { brand: "ford", type: "truck", model: "F-150", image: "images/car3.jpg" },
+ { brand: "toyota", type: "sedan", model: "Camry", image: "images/car4.jpg" },
+      { brand: "honda", type: "suv", model: "CR-V", image: "images/car5.jpg" },
+      { brand: "ford", type: "truck", model: "F-150", image: "images/car6.jpg" },
+ { brand: "toyota", type: "sedan", model: "Camry", image: "images/car7.jpg" },
+      { brand: "honda", type: "suv", model: "CR-V", image: "images/car8.jpg" },
+      { brand: "ford", type: "truck", model: "F-150", image: "images/car9.jpg" },
+{ brand: "toyota", type: "sedan", model: "Camry", image: "images/car10.jpg" },
+      { brand: "honda", type: "suv", model: "CR-V", image: "images/car11.jpg" },
+      { brand: "ford", type: "truck", model: "F-150", image: "images/car12.jpg" },
+
+      // Add more car data as needed
+    ];
+    
+    const brandFilter = document.getElementById("brand");
+    const typeFilter = document.getElementById("type");
+    const filterButton = document.getElementById("filterBtn");
+    const carListContainer = document.getElementById("carList");
+    
+    // Function to filter and display cars
+    function filterCars() {
+      const selectedBrand = brandFilter.value;
+      const selectedType = typeFilter.value;
+      
+      const filteredCars = cars.filter(car => {
+        if (selectedBrand !== "all" && car.brand !== selectedBrand) {
+          return false;
+        }
+        if (selectedType !== "all" && car.type !== selectedType) {
+          return false;
+        }
+        return true;
+      });
+      
+      // Display the filtered cars
+      displayCars(filteredCars);
+    }
+    
+    // Function to display cars in the container
+    function displayCars(carArray) {
+      carListContainer.innerHTML = ""; // Clear existing content
+      
+      if (carArray.length === 0) {
+        carListContainer.textContent = "No cars match the selected filters.";
+      } else {
+        carArray.forEach(car => {
+          const carItem = document.createElement("div");
+          carItem.className = "car-item";
+          
+          const carImage = document.createElement("img");
+          carImage.className = "car-image";
+          carImage.src = car.image;
+          carImage.alt = `${car.brand} ${car.model}`;
+          carItem.appendChild(carImage);
+          
+          const carDetails = document.createElement("div");
+          carDetails.textContent = `${car.brand} ${car.model} (${car.type})`;
+          carItem.appendChild(carDetails);
+          
+          carListContainer.appendChild(carItem);
+        });
+      }
+    }
+    
+    // Attach filterCars function to the filter button click event
+    filterButton.addEventListener("click", filterCars);
+    
+    // Initial display of all cars
+    displayCars(cars);
+  </script>
+   <a href="marazzo.html" class="details-link">Details</a>
+</body>
+</html>
